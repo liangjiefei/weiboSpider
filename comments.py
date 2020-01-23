@@ -12,21 +12,23 @@ if __name__ == '__main__':
     db = client["微博话题_db"]
     topic_bands_col = db["话题榜_col"]
     weibos_col = db["微博_col"]
+    comments_col = db["评论_col"]
 
-    # 设置微博数据库索引
-    weibos_col.create_index(key="微博id")
+    # 设置评论数据库索引
+    comments_col.create_index(key="评论内容id")
 
-    # 不简短更新每个话题的最新微博
+    # 不间断更新每个话题的最新微博
     while True:
         try:
             Spider.load_setting()
-            topic_bands = list(topic_bands_col.find())
-            for topic in topic_bands:
+            weibos = list(weibos_col.find())
+            for weibo in weibos:
                 now = time.time()
-                if now - topic["更新时间"] < 900:
-                    result, weibos = Spider.topic_weibos(topic_name=topic["微博话题"])
-                    if result:
-                        weibos_col.insert_many(weibos)
+                # 判断话题是否还在话题榜上
+                if now - topic_bands_col.find_one({"微博话题": weibo["话题名字"]})["更新时间"] < 900:
+                    result, comments = Spider.comments(weibo["微博id"])
+                    if comments:
+                        comments_col.insert_many(comments)
         except Exception:
             pass
         finally:
