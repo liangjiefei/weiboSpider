@@ -224,7 +224,8 @@ class TopicBandSpider(object):
                             "评论时间": comment["created_at"],
                             "评论内容": comment["text"],
                             "微博id": weibo_id,
-                            "跟随评论内容id": comment["rootid"]
+                            "跟随评论内容id": comment["rootid"],
+                            "更新时间": time.time()
                         })
                         if comment_comments:
                             for comment_comment in comment_comments:
@@ -235,7 +236,8 @@ class TopicBandSpider(object):
                                     "评论时间": comment_comment["created_at"],
                                     "评论内容": comment_comment["text"],
                                     "微博id": weibo_id,
-                                    "跟随评论内容id": comment["rootid"]
+                                    "跟随评论内容id": comment["rootid"],
+                                    "更新时间": time.time()
                                 })
                     params["max_id"] = str(max_id)
                     params["max_id_type"] = str(max_id_type)
