@@ -24,7 +24,7 @@ if __name__ == '__main__':
                 now = time.time()
                 if now - topic["更新时间"] < 900:
                     result, weibos = Spider.topic_weibos(topic_name=topic["微博话题"])
-                    if result:
+                    if weibos:
                         weibos_col.insert_many(weibos)
             time.sleep(5)
         except Exception:
