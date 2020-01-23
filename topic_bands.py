@@ -22,7 +22,7 @@ if __name__ == '__main__':
         try:
             Spider.load_setting()
             result, topic_bands = Spider.all_topic_bands_info()
-            if result:
+            if topic_bands:
                 topic_bands_col.insert_many(topic_bands)
         except Exception:
             pass
