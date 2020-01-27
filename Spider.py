@@ -24,9 +24,11 @@ class TopicBandSpider(object):
 
     def get_proxy_list(self):
         try:
+            file = open('setting.json', 'r', encoding='utf8')
+            setting = eval(file.read())
             url = "http://api3.xiguadaili.com/ip/"
             params = {
-                "tid": "556351517278224",
+                "tid": setting["order_id"],
                 "num": "10",
                 "sortby": "time ",
                 "format": "json",
