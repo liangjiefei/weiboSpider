@@ -7,6 +7,7 @@
 import requests
 from random import choice
 import time
+import pymongo
 
 
 class TopicBandSpider(object):
@@ -15,6 +16,18 @@ class TopicBandSpider(object):
         self.cookie_list = []
         self.user_agent_list = []
         self.proxy_list = []
+        self.client = pymongo.MongoClient()
+        self.db = self.client["微博话题_db"]
+        self.topic_bands_col = self.db["话题榜_col"]
+        self.weibos_col = self.db["微博_col"]
+        self.comments_col = self.db["评论_col"]
+
+        # 设置话题榜数据库索引
+        self.topic_bands_col.create_index(keys="微博话题")
+        # 设置微博数据库索引
+        self.weibos_col.create_index(keys="微博id")
+        # 设置评论数据库索引
+        self.comments_col.create_index(keys="评论内容id")
 
     def load_setting(self):
         file = open('setting.json', 'r', encoding='utf8')
@@ -50,19 +63,19 @@ class TopicBandSpider(object):
         }
 
     def req(self, url, params):
+        time.sleep(0.2)
         self.get_proxy_list()
         headers = self.get_headers()
         proxies = self.get_proxy()
         try:
             res = requests.get(url=url, params=params, headers=headers, timeout=10, proxies=proxies)
-            if res.status_code != 200:
-                self.req(url, params)
-            else:
+            if res.status_code == 200:
                 if res.json():
-                    print(res.url)
                     return res
                 else:
                     self.req(url, params)
+            else:
+                self.req(url, params)
         except Exception:
             self.req(url, params)
 
@@ -93,12 +106,10 @@ class TopicBandSpider(object):
                     result.append(card["title_sub"])
             return True, result
         except Exception as ex:
-            print(ex)
             return False, result
 
     def topic_weibos(self, topic_name):
         """获取话题下的所有微博"""
-        result = []
         url = "https://m.weibo.cn/api/container/getIndex"
         containerid = "231522type=1&t=10&q={}".format(topic_name)
         params = {
@@ -133,14 +144,14 @@ class TopicBandSpider(object):
                                 "点赞数": mblog.get("attitudes_count", ""),
                                 "转发数": mblog.get("reposts_count", ""),
                             }
-                            result.append(weibo)
                             print(weibo)
+                            self.weibos_col.update_one({"微博id": weibo["微博id"]}, {"$set": weibo}, True)
                     params["page"] = params["page"] + 1
                 else:
-                    print("话题{}微博爬取完毕, 总共{}条微博".format(topic_name, len(result)))
-                    return True, result
+                    print("话题{}微博爬取完毕".format(topic_name))
+                    break
             except Exception as ex:
-                return False, None
+                print(ex)
 
     def topic_info(self, topic_name):
         """获取话题详情"""
@@ -161,9 +172,9 @@ class TopicBandSpider(object):
             return True, {
                 "微博话题": topic_name,
                 "话题开始时间": card_list_info["starttime"],
-                "主持人": card_list_info['cardlist_head_cards'][0]["head_data"]["downtext"].split("主持人：")[1],
-                "阅读量": card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"].split()[0].split("阅读")[1],
-                "讨论量": card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"].split()[1].split("讨论")[1],
+                "主持人": card_list_info['cardlist_head_cards'][0]["head_data"]["downtext"].split("主持人：")[1] if "主持人" in card_list_info['cardlist_head_cards'][0]["head_data"]["downtext"] else None,
+                "阅读量": card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"].split()[0].split("阅读")[1] if "阅读" in card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"] else None,
+                "讨论量": card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"].split()[1].split("讨论")[1] if "讨论" in card_list_info['cardlist_head_cards'][0]["head_data"]["midtext"] else None,
                 "话题贡献值排行": self.contributor(topic_name=topic_name)[1],
                 "更新时间": time.time()
             }
@@ -198,7 +209,7 @@ class TopicBandSpider(object):
                 else:
                     return True, result
         except Exception:
-            return False, None
+            return False, result
 
     def comments(self, weibo_id):
         result = []
@@ -219,7 +230,7 @@ class TopicBandSpider(object):
                     comments = res["data"]
                     for comment in comments:
                         comment_comments = comment["comments"]
-                        result.append({
+                        data = {
                             "评论内容id": comment["id"],
                             "评论用户id": comment["user"]["id"],
                             "评论用户名": comment["user"]["screen_name"],
@@ -228,10 +239,12 @@ class TopicBandSpider(object):
                             "微博id": weibo_id,
                             "跟随评论内容id": comment["rootid"],
                             "更新时间": time.time()
-                        })
+                        }
+                        print(data)
+                        self.topic_bands_col.update_one({"评论内容id": data["评论内容id"]}, {"$set": data}, True)
                         if comment_comments:
                             for comment_comment in comment_comments:
-                                result.append({
+                                data2 = {
                                     "评论内容id": comment_comment["id"],
                                     "评论用户id": comment_comment["user"]["id"],
                                     "评论用户名": comment_comment["user"]["screen_name"],
@@ -240,36 +253,56 @@ class TopicBandSpider(object):
                                     "微博id": weibo_id,
                                     "跟随评论内容id": comment["rootid"],
                                     "更新时间": time.time()
-                                })
+                                }
+                                print(data2)
+                                self.topic_bands_col.update_one({"评论内容id": data2["评论内容id"]}, {"$set": data2}, True)
                     params["max_id"] = str(max_id)
                     params["max_id_type"] = str(max_id_type)
                 else:
-                    print("微博{}评论爬取完毕, 总共{}条评论".format(weibo_id, len(result)))
+                    print("微博{}评论爬取完毕".format(weibo_id))
                     return True, result
             except Exception as ex:
-                return False, None
+                return False, result
+
+    def all_weibos_comments(self):
+        try:
+            weibos = list(self.weibos_col.find())
+            for weibo in weibos:
+                now = time.time()
+                # 判断话题是否还在话题榜上
+                if now - self.topic_bands_col.find_one({"微博话题": weibo["话题名字"]})["更新时间"] < 900:
+                    self.comments(weibo["微博id"])
+        except Exception:
+            pass
+
+    def all_topic_weibos(self):
+        try:
+            topic_bands = list(self.topic_bands_col.find())
+            for topic in topic_bands:
+                now = time.time()
+                if now - topic["更新时间"] < 900:
+                    self.topic_weibos(topic_name=topic["微博话题"])
+        except Exception:
+            pass
 
     def all_topic_bands_info(self):
         """获取社会热榜上的话题的详细信息"""
         try:
-            result_list = []
             result, topic_bands = self.topic_bands()
             print(result, topic_bands)
             for topic in topic_bands:
                 result, topic_info = self.topic_info(topic)
-                result_list.append(topic_info)
-            return True, result_list
-        except Exception:
-            return False, None
+                if topic_info:
+                    self.topic_bands_col.update_one({"微博话题": topic},{"$set":topic_info}, True)
+        except Exception as ex:
+            print(ex)
 
 
-# # 测试
-# if __name__ == '__main__':
-#     a = TopicBandSpider()
-#     a.load_setting()
-    # a.get_proxy_list()
-    # a, b = a.all_topic_bands_info()
-    # print(a)
-    # print(b)
-    # data = a.topic_weibos("#明天还上班#")
-    # print(a.get_publish_time("2分钟前"))
+# 测试
+# 新型肺炎疫情可能元宵节前好转
+if __name__ == '__main__':
+    a = TopicBandSpider()
+    a.load_setting()
+    a.get_proxy_list()
+    a, b = a.topic_info("#新型肺炎疫情可能元宵节前好转#")
+    print(b)
