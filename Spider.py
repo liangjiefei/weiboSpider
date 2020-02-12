@@ -274,12 +274,14 @@ class TopicBandSpider(object):
 
     def all_weibos_comments(self):
         try:
-            weibos = list(self.weibos_col.find())
-            for weibo in weibos:
+            topic_bands = list(self.topic_bands_col.find())
+            for topic in topic_bands:
                 now = time.time()
-                # 判断话题是否还在话题榜上
-                if now - self.topic_bands_col.find_one({"微博话题": weibo["话题名字"]})["更新时间"] < 900:
-                    self.comments(weibo["微博id"])
+                update_time = topic["更新时间"]
+                if now - update_time < 900:
+                    weibos = list(self.weibos_col.find({"话题名字": topic["微博话题"]}))
+                    for weibo in weibos:
+                        self.comments(weibo["微博id"])
         except Exception:
             pass
 
