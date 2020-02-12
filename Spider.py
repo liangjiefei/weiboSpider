@@ -13,11 +13,18 @@ import pymongo
 class TopicBandSpider(object):
 
     def __init__(self):
+        self.username = ""
+        self.password = ""
         self.cookie_list = []
         self.user_agent_list = []
         self.proxy_list = []
+
+        self.load_setting()
+
         self.client = pymongo.MongoClient()
+        self.client["admin"].authenticate(name=self.username, password=self.password)
         self.db = self.client["微博话题_db"]
+
         self.topic_bands_col = self.db["话题榜_col"]
         self.weibos_col = self.db["微博_col"]
         self.comments_col = self.db["评论_col"]
@@ -34,6 +41,8 @@ class TopicBandSpider(object):
         setting = eval(file.read())
         self.cookie_list = setting["cookie_list"]
         self.user_agent_list = setting["user_agent_list"]
+        self.username = setting["username"]
+        self.password = setting["password"]
 
     def get_proxy_list(self):
         try:
@@ -241,7 +250,7 @@ class TopicBandSpider(object):
                             "更新时间": time.time()
                         }
                         print(data)
-                        self.topic_bands_col.update_one({"评论内容id": data["评论内容id"]}, {"$set": data}, True)
+                        self.comments_col.update_one({"评论内容id": data["评论内容id"]}, {"$set": data}, True)
                         if comment_comments:
                             for comment_comment in comment_comments:
                                 data2 = {
@@ -255,7 +264,7 @@ class TopicBandSpider(object):
                                     "更新时间": time.time()
                                 }
                                 print(data2)
-                                self.topic_bands_col.update_one({"评论内容id": data2["评论内容id"]}, {"$set": data2}, True)
+                                self.comments_col.update_one({"评论内容id": data2["评论内容id"]}, {"$set": data2}, True)
                     params["max_id"] = str(max_id)
                     params["max_id_type"] = str(max_id_type)
                 else:

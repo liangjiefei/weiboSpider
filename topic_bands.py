@@ -5,7 +5,6 @@
 if __name__ == '__main__':
     from Spider import TopicBandSpider
     import time
-    import pymongo
 
     Spider = TopicBandSpider()
 

@@ -4,10 +4,8 @@
     <list default="true" id="62018db2-dc7c-45df-8a83-b0a750dce179" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/Spider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comments.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setting.json" beforeDir="false" afterPath="$PROJECT_DIR$/setting.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/topic_bands.py" beforeDir="false" afterPath="$PROJECT_DIR$/topic_bands.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weibos.py" beforeDir="false" afterPath="$PROJECT_DIR$/weibos.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,16 +17,19 @@
     <session id="1490908074">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.17" value="2" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.30" value="1" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -47,15 +48,15 @@
         <counts>
           <entry key="Python Console" value="610" />
           <entry key="dummy" value="1" />
-          <entry key="json" value="127" />
-          <entry key="py" value="9129" />
+          <entry key="json" value="173" />
+          <entry key="py" value="9340" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="127" />
+          <entry key="JSON" value="173" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="9739" />
+          <entry key="Python" value="9950" />
         </counts>
       </usages-collector>
     </session>
@@ -68,13 +69,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Spider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="266" column="34" lean-forward="true" selection-start-line="266" selection-start-column="34" selection-end-line="266" selection-end-column="34" />
+            <state relative-caret-position="200">
+              <caret line="276" column="12" lean-forward="true" selection-start-line="276" selection-start-column="12" selection-end-line="276" selection-end-column="12" />
               <folding>
                 <element signature="e#68#83#0" expanded="true" />
-                <marker date="1580312214728" expanded="true" signature="10678:11032" ph="..." />
-                <marker date="1580312214728" expanded="true" signature="11059:11068" ph="..." />
-                <marker date="1580312214728" expanded="true" signature="11059:11363" ph="..." />
+                <marker date="1581520391253" expanded="true" signature="10931:11285" ph="..." />
+                <marker date="1581520391253" expanded="true" signature="11312:11321" ph="..." />
+                <marker date="1581520391253" expanded="true" signature="11312:11616" ph="..." />
               </folding>
             </state>
           </provider>
@@ -83,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/setting.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="65" column="31" lean-forward="true" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+            <state relative-caret-position="452">
+              <caret line="69" column="32" lean-forward="true" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -93,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/topic_bands.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -101,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/comments.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+            <state relative-caret-position="180">
+              <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -159,11 +160,11 @@
         <option value="$PROJECT_DIR$/weibo.py" />
         <option value="$PROJECT_DIR$/proxy.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/setting.json" />
-        <option value="$PROJECT_DIR$/topic_bands.py" />
         <option value="$PROJECT_DIR$/Spider2.0.py" />
         <option value="$PROJECT_DIR$/weibos.py" />
+        <option value="$PROJECT_DIR$/topic_bands.py" />
         <option value="$PROJECT_DIR$/comments.py" />
+        <option value="$PROJECT_DIR$/setting.json" />
         <option value="$PROJECT_DIR$/Spider.py" />
       </list>
     </option>
@@ -181,7 +182,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -193,6 +193,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -370,15 +371,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4972826" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4972826" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.5027174" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5027174" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49925596" visible="true" weight="0.43278688" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49925596" weight="0.44590163" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4811784" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -406,13 +406,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy.py" />
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/Spider2.0.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Spider2.0.py" />
     <entry file="file://$PROJECT_DIR$/topic_bands.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -425,28 +423,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/comments.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="180">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Spider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="266" column="34" lean-forward="true" selection-start-line="266" selection-start-column="34" selection-end-line="266" selection-end-column="34" />
+        <state relative-caret-position="200">
+          <caret line="276" column="12" lean-forward="true" selection-start-line="276" selection-start-column="12" selection-end-line="276" selection-end-column="12" />
           <folding>
             <element signature="e#68#83#0" expanded="true" />
-            <marker date="1580312214728" expanded="true" signature="10678:11032" ph="..." />
-            <marker date="1580312214728" expanded="true" signature="11059:11068" ph="..." />
-            <marker date="1580312214728" expanded="true" signature="11059:11363" ph="..." />
+            <marker date="1581520391253" expanded="true" signature="10931:11285" ph="..." />
+            <marker date="1581520391253" expanded="true" signature="11312:11321" ph="..." />
+            <marker date="1581520391253" expanded="true" signature="11312:11616" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setting.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="65" column="31" lean-forward="true" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+        <state relative-caret-position="452">
+          <caret line="69" column="32" lean-forward="true" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
         </state>
       </provider>
     </entry>
