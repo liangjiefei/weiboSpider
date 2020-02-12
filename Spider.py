@@ -21,8 +21,7 @@ class TopicBandSpider(object):
 
         self.load_setting()
 
-        self.client = pymongo.MongoClient()
-        self.client["admin"].authenticate(name=self.username, password=self.password)
+        self.client = pymongo.MongoClient('mongodb://{}:{}@149.129.103.159:27017/'.format(self.username, self.password))
         self.db = self.client["微博话题_db"]
 
         self.topic_bands_col = self.db["话题榜_col"]
@@ -311,7 +310,5 @@ class TopicBandSpider(object):
 # 新型肺炎疫情可能元宵节前好转
 if __name__ == '__main__':
     a = TopicBandSpider()
-    a.load_setting()
-    a.get_proxy_list()
-    a, b = a.topic_info("#新型肺炎疫情可能元宵节前好转#")
-    print(b)
+    # a, b = a.topic_info("#新型肺炎疫情可能元宵节前好转#")
+    # print(b)
